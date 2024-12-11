@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Diagram Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Sequence Diagram Interaction Form</h1>
+    <form id="sequenceForm" action="https://studies.cs.helsinki.fi/exampleapp/notes" method="get">
+        <fieldset>
+            <legend>Interaction Details</legend>
+            <label for="resource">Resource Requested:</label>
+            <select id="resource" name="resource">
+                <option value="notes">HTML Document</option>
+                <option value="main.css">CSS File</option>
+                <option value="main.js">JavaScript File</option>
+                <option value="data.json">JSON Data</option>
+            </select>
+            <br>
+            <label for="date">Request Date:</label>
+            <input type="date" id="date" name="date">
+            <br>
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes" rows="4" cols="50">The browser executes the JavaScript code and fetches the data.</textarea>
+        </fieldset>
+        <button type="submit">Submit Request</button>
+    </form>
+
+    <script>
+        document.getElementById('sequenceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const resource = document.getElementById('resource').value;
+            alert(`Fetching resource: ${resource}`);
+            fetch(`https://studies.cs.helsinki.fi/exampleapp/${resource}`)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    alert('Resource fetched successfully! Check console for details.');
+                })
+                .catch(error => console.error('Error fetching resource:', error));
+        });
+    </script>
+</body>
+</html>
